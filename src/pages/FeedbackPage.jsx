@@ -26,22 +26,22 @@ export function FeedbackPage() {
     }
     setStatus('saving')
     try {
-      await submitFeedback(form)
-      setForm(empty)
-      setStatus('done')
+      const lesson = lessons.find((item) => item.id === form.lessonId)
+      await submitFeedback({ ...form, lesson: lesson?.grade ?? form.lessonId })
+      setStatus('sent')
     } catch {
-      setStatus('idle')
+      setStatus('error')
     }
   }
 
-  if (status === 'done') {
+  if (status === 'sent') {
     return (
       <section>
         <PageHeader title="수업 참관 의견 작성" />
         <div className="card empty">
-          <h2>의견을 남겨 주셔서 감사합니다.</h2>
-          <p>작성하신 내용은 연구학교 운영 개선에 참고하겠습니다.</p>
-          <button type="button" className="btn" onClick={() => setStatus('idle')}>
+          <h2>의견 전송을 요청했습니다.</h2>
+          <p>브라우저 보안 정책으로 저장 완료 여부를 이 화면에서 직접 확인할 수 없습니다. 담당자는 구글 스프레드시트에 의견이 추가되었는지 확인해 주세요.</p>
+          <button type="button" className="btn" onClick={() => { setForm(empty); setStatus('idle') }}>
             다른 의견 작성하기
           </button>
         </div>
@@ -103,6 +103,9 @@ export function FeedbackPage() {
           />
         </label>
 
+        {status === 'error' ? (
+          <p className="form-error">전송 중 오류가 발생했습니다. 인터넷 연결을 확인하고 다시 시도해 주세요.</p>
+        ) : null}
         {status === 'invalid' ? (
           <p className="form-error">참관한 수업과 인상 깊었던 점은 꼭 입력해 주세요.</p>
         ) : null}
