@@ -661,7 +661,7 @@ textarea {
   min-height: 0;
   overflow: auto;
   overscroll-behavior: contain;
-  touch-action: pan-x pan-y;
+  touch-action: none;
   cursor: grab;
   user-select: none;
 }

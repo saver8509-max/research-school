@@ -3,12 +3,18 @@ import { PageHeader } from '../components/Layout'
 import { site } from '../data/site'
 import { asset } from '../lib/assets'
 
+const MIN_ZOOM = 0.6
+const MAX_ZOOM = 4
+const clampZoom = (value) => Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, value))
+
 export function MapPage() {
   const [open, setOpen] = useState(false)
   const [hasImage, setHasImage] = useState(true)
   const [zoom, setZoom] = useState(1)
+  const zoomRef = useRef(1)
   const viewportRef = useRef(null)
-  const dragRef = useRef(null)
+  const pointersRef = useRef(new Map())
+  const gestureRef = useRef(null)
   const src = asset(site.mapImage)
 
   useEffect(() => {
@@ -20,39 +26,96 @@ export function MapPage() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [open])
 
-  function openMap() {
+  function updateZoom(value, anchorX, anchorY) {
+    const el = viewportRef.current
+    const bounded = clampZoom(value)
+    const previous = zoomRef.current
+    if (!el || bounded === previous) return
+    const rect = el.getBoundingClientRect()
+    const x = anchorX ?? rect.left + rect.width / 2
+    const y = anchorY ?? rect.top + rect.height / 2
+    const localX = x - rect.left
+    const localY = y - rect.top
+    const imageX = (el.scrollLeft + localX) / previous
+    const imageY = (el.scrollTop + localY) / previous
+    zoomRef.current = bounded
+    setZoom(bounded)
+    requestAnimationFrame(() => {
+      if (viewportRef.current !== el) return
+      el.scrollLeft = imageX * bounded - localX
+      el.scrollTop = imageY * bounded - localY
+    })
+  }
+
+  function resetMap() {
+    pointersRef.current.clear()
+    gestureRef.current = null
+    zoomRef.current = 1
     setZoom(1)
+    requestAnimationFrame(() => viewportRef.current?.scrollTo(0, 0))
+  }
+
+  function openMap() {
+    resetMap()
     setOpen(true)
   }
 
-  function changeZoom(next) {
-    const viewport = viewportRef.current
-    const bounded = Math.min(3, Math.max(0.6, next))
-    if (viewport) {
-      const centerX = viewport.scrollLeft + viewport.clientWidth / 2
-      const centerY = viewport.scrollTop + viewport.clientHeight / 2
-      const ratio = bounded / zoom
-      setZoom(bounded)
-      requestAnimationFrame(() => {
-        viewport.scrollLeft = centerX * ratio - viewport.clientWidth / 2
-        viewport.scrollTop = centerY * ratio - viewport.clientHeight / 2
-      })
-    } else setZoom(bounded)
+  function onPointerDown(event) {
+    if (event.pointerType === 'mouse' && event.button !== 0) return
+    const el = viewportRef.current
+    if (!el) return
+    el.setPointerCapture(event.pointerId)
+    pointersRef.current.set(event.pointerId, { x: event.clientX, y: event.clientY })
+    const points = [...pointersRef.current.values()]
+    if (points.length === 1) {
+      gestureRef.current = { type: 'pan', x: points[0].x, y: points[0].y, left: el.scrollLeft, top: el.scrollTop }
+    } else if (points.length === 2) {
+      const [a, b] = points
+      gestureRef.current = {
+        type: 'pinch',
+        distance: Math.hypot(a.x - b.x, a.y - b.y) || 1,
+        zoom: zoomRef.current,
+        centerX: (a.x + b.x) / 2,
+        centerY: (a.y + b.y) / 2,
+      }
+    }
   }
 
-  function onPointerDown(event) {
-    if (event.pointerType !== 'mouse' || event.button !== 0) return
-    const el = viewportRef.current
-    dragRef.current = { x: event.clientX, y: event.clientY, left: el.scrollLeft, top: el.scrollTop }
-    el.setPointerCapture(event.pointerId)
-  }
   function onPointerMove(event) {
-    if (!dragRef.current) return
+    if (!pointersRef.current.has(event.pointerId)) return
     const el = viewportRef.current
-    el.scrollLeft = dragRef.current.left - (event.clientX - dragRef.current.x)
-    el.scrollTop = dragRef.current.top - (event.clientY - dragRef.current.y)
+    pointersRef.current.set(event.pointerId, { x: event.clientX, y: event.clientY })
+    const points = [...pointersRef.current.values()]
+    const gesture = gestureRef.current
+    if (!el || !gesture) return
+    if (points.length === 1 && gesture.type === 'pan') {
+      el.scrollLeft = gesture.left - (points[0].x - gesture.x)
+      el.scrollTop = gesture.top - (points[0].y - gesture.y)
+    } else if (points.length === 2 && gesture.type === 'pinch') {
+      const [a, b] = points
+      const distance = Math.hypot(a.x - b.x, a.y - b.y)
+      const centerX = (a.x + b.x) / 2
+      const centerY = (a.y + b.y) / 2
+      updateZoom(gesture.zoom * distance / gesture.distance, centerX, centerY)
+      // Keep the center of the two fingers moving naturally while pinching.
+      el.scrollLeft -= centerX - gesture.centerX
+      el.scrollTop -= centerY - gesture.centerY
+      gesture.centerX = centerX
+      gesture.centerY = centerY
+    }
   }
-  function onPointerUp() { dragRef.current = null }
+
+  function onPointerUp(event) {
+    pointersRef.current.delete(event.pointerId)
+    const el = viewportRef.current
+    if (el?.hasPointerCapture(event.pointerId)) el.releasePointerCapture(event.pointerId)
+    const points = [...pointersRef.current.values()]
+    if (points.length === 1 && el) {
+      gestureRef.current = { type: 'pan', x: points[0].x, y: points[0].y, left: el.scrollLeft, top: el.scrollTop }
+    } else {
+      gestureRef.current = null
+    }
+  }
 
   return (
     <section>
@@ -69,15 +132,15 @@ export function MapPage() {
           </div>
         </div>
       )}
-      {hasImage && <p className="hint">지도를 누르면 확대됩니다. 확대 화면에서 손가락으로 위아래·좌우 이동할 수 있습니다.</p>}
+      {hasImage && <p className="hint">지도를 누르면 크게 볼 수 있습니다. 한 손가락으로 이동하고 두 손가락으로 확대·축소하세요.</p>}
       {open && hasImage && (
         <div className="lightbox" role="dialog" aria-modal="true" aria-label="안내지도 확대">
           <div className="map-toolbar">
-            <span className="map-toolbar-label">손가락으로 지도를 움직여 보세요</span>
-            <button type="button" onClick={() => changeZoom(zoom - 0.25)} aria-label="축소">−</button>
+            <span className="map-toolbar-label">한 손가락 이동 · 두 손가락 확대/축소</span>
+            <button type="button" onClick={() => updateZoom(zoomRef.current - 0.25)} aria-label="축소">−</button>
             <span className="map-zoom-value">{Math.round(zoom * 100)}%</span>
-            <button type="button" onClick={() => changeZoom(zoom + 0.25)} aria-label="확대">+</button>
-            <button type="button" onClick={() => { setZoom(1); viewportRef.current?.scrollTo(0, 0) }}>초기화</button>
+            <button type="button" onClick={() => updateZoom(zoomRef.current + 0.25)} aria-label="확대">+</button>
+            <button type="button" onClick={resetMap}>초기화</button>
             <button type="button" onClick={() => setOpen(false)}>닫기</button>
           </div>
           <div
