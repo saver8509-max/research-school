@@ -110,6 +110,13 @@ export function FeedbackPage() {
           <p className="form-error">참관한 수업과 인상 깊었던 점은 꼭 입력해 주세요.</p>
         ) : null}
 
+        {status === 'saving' ? (
+          <p role="status" aria-live="polite" style={{ margin: '0 0 12px', padding: '14px 16px', borderRadius: '12px', background: '#f8edf2', color: '#523c4b', lineHeight: 1.6 }}>
+            <strong>참관 의견을 저장하고 있습니다.</strong><br />
+            저장에는 약 3~10초가 소요될 수 있습니다. 잠시만 기다려 주세요.
+          </p>
+        ) : null}
+
         <button type="submit" className="btn" disabled={status === 'saving'}>
           {status === 'saving' ? '저장 중...' : '의견 보내기'}
         </button>
