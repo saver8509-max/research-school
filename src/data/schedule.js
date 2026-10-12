@@ -1,60 +1,9 @@
-/**
- * 발표회 진행 순서
- * time, title, place 만 수정·추가하면 됩니다.
- */
+/** 2026학년도 우산초등학교 연구학교 발표회 운영 순서 */
 export const schedule = [
-  {
-    id: 'reg',
-    time: '09:00 – 09:20',
-    title: '등록 및 안내',
-    place: '본관 1층 로비',
-  },
-  {
-    id: 'open',
-    time: '09:20 – 09:50',
-    title: '개회식',
-    place: '강당',
-  },
-  {
-    id: 'lesson',
-    time: '10:00 – 10:40',
-    title: '공개수업',
-    place: '각 해당 교실',
-  },
-  {
-    id: 'break',
-    time: '10:40 – 11:00',
-    title: '이동 및 휴식',
-    place: '교내',
-  },
-  {
-    id: 'review',
-    time: '11:00 – 12:00',
-    title: '수업 협의회',
-    place: '강당',
-  },
-  {
-    id: 'lunch',
-    time: '12:00 – 13:00',
-    title: '중식',
-    place: '급식실',
-  },
-  {
-    id: 'report',
-    time: '13:00 – 14:20',
-    title: '연구학교 운영 성과 발표',
-    place: '강당',
-  },
-  {
-    id: 'qna',
-    time: '14:20 – 14:50',
-    title: '질의응답 및 나눔',
-    place: '강당',
-  },
-  {
-    id: 'close',
-    time: '14:50 – 15:00',
-    title: '폐회',
-    place: '강당',
-  },
+  { id: 'reg', time: '12:50~13:10', title: '등록 및 접수', place: '본동 중앙현관' },
+  { id: 'lesson', time: '13:10~14:40', title: '「잇다 프로그램」 적용 수업 나눔', place: '각 공개수업 교실' },
+  { id: 'break', time: '14:40~15:00', title: '휴식 및 자료 나눔', place: '체육관 및 전시 공간' },
+  { id: 'report', time: '15:00~16:00', title: '연구학교 운영 보고회', place: '체육관' },
+  { id: 'qna', time: '16:00~16:30', title: '질의응답 및 토론', place: '체육관' },
+  { id: 'close', time: '16:30', title: '폐회', place: '체육관' },
 ]
