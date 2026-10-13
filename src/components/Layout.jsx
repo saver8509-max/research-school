@@ -6,7 +6,7 @@ const navItems = [
   { to: '/map', label: '지도', full: '학교 안내지도' },
   { to: '/lessons', label: '지도안', full: '수업 지도안' },
   { to: '/feedback', label: '의견', full: '참관 의견' },
-  { to: '/resources', label: '자료', full: '일반화 자료' },
+  { to: '/resources', label: '자료', full: '운영 성과 나눔 자료' },
 ]
 
 export function Layout({ routeName, children }) {
