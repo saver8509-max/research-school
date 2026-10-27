@@ -3,103 +3,20 @@ import { Link } from '../components/Link'
 import { getLessonById } from '../data/lessons'
 import { asset } from '../lib/assets'
 
-export function LessonPlanPage({ id }) {
-  const lesson = getLessonById(id)
-
-  if (!lesson) {
-    return (
-      <section>
-        <PageHeader title="수업 지도안" />
-        <div className="card empty">
-          <p>해당 수업을 찾을 수 없습니다.</p>
-          <Link to="/lessons" className="btn">
-            수업 목록으로
-          </Link>
-        </div>
-      </section>
-    )
-  }
-
-  return (
-    <section>
-      <PageHeader title="웹페이지용 수업 지도안" description={`${lesson.grade} · ${lesson.subject}`} />
-
-      <article className="card plan-meta">
-        <p className="badge">{lesson.subject}</p>
-        <h2>{lesson.plan.topic}</h2>
-        <p>
-          {lesson.place} · {lesson.time}
-        </p>
-      </article>
-
-      <section className="block">
-        <h3>1. 수업 주제</h3>
-        <div className="card">
-          <p className="lead">{lesson.plan.topic}</p>
-        </div>
-      </section>
-
-      <section className="block">
-        <h3>2. 학습 목표</h3>
-        <ul className="goal-list">
-          {lesson.plan.goals.length === 0 ? <li className="card">지도안 등록 예정</li> : null}
-          {lesson.plan.goals.map((goal) => (
-            <li key={goal} className="card">
-              {goal}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="block">
-        <h3>3. 교수·학습 과정</h3>
-        <div className="process">
-          {lesson.plan.process.length === 0 ? <p className="card">지도안 등록 예정</p> : null}
-          {lesson.plan.process.map((step, index) => (
-            <div key={step.stage}>
-              {index > 0 ? (
-                <div className="flow-arrow" aria-hidden>
-                  ↓
-                </div>
-              ) : null}
-              <section className="stage">
-                <header className="stage-head">
-                  <h4>{step.stage}</h4>
-                  {step.duration ? <span>{step.duration}</span> : null}
-                </header>
-                <ul className="activity-list">
-                  {step.activities.map((activity) => (
-                    <li key={activity.title} className="card activity-card">
-                      <strong>{activity.title}</strong>
-                      <p>{activity.detail}</p>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <div className="pdf-row">
-        {lesson.pdf ? (
-          <a className="btn" href={asset(lesson.pdf)} target="_blank" rel="noreferrer">
-            원본 지도안 PDF 보기
-          </a>
-        ) : (
-          <button type="button" className="btn" disabled>
-            원본 지도안 PDF 보기
-          </button>
-        )}
-        <Link to="/lessons" className="btn btn-ghost">
-          다른 수업 보기
-        </Link>
-      </div>
-      {lesson.pdf ? null : (
-        <p className="hint">
-          원본 PDF는 public/materials/lessons/ 에 파일을 넣은 뒤 수업 데이터에 경로를 연결하면 열립니다.
-        </p>
-      )}
-    </section>
-  )
+export function LessonPlanPage({id}) {
+ const lesson=getLessonById(id)
+ if(!lesson)return <section><PageHeader title="수업 지도안"/><Link to="/lessons" className="btn">수업 목록으로</Link></section>
+ const {project,plan}=lesson
+ return <section>
+  <PageHeader title={`${lesson.grade} 프로젝트 공개수업`} description={`${project.subjects} · ${lesson.period}`}/>
+  <section className="block"><h3>1. 프로젝트 소개</h3><article className="card"><h2>{project.title}</h2><p>{project.summary}</p></article></section>
+  <section className="block"><h3>2. 프로젝트 학습 과정</h3><div className="process">{project.stages.map(([period,title,detail])=><article className="card" key={period}><p className="badge">{period}</p><h4>{title}</h4><p>{detail}</p></article>)}</div></section>
+  <section className="block"><h3>3. 공개수업 안내</h3><article className="card"><p className="badge">{lesson.period}</p><h2>{plan.topic}</h2><p><strong>학습 목표</strong> · {plan.goals[0]}</p></article>
+  <div className="process">{plan.process.map(({stage,activities})=>activities.map(a=><article className="card" key={stage} style={{opacity:a.status==='사전 실시'?.75:1,borderLeft:a.status==='공개수업'?'4px solid #ed7b93':'4px solid #c5cbd3'}}><p className="badge">{a.status}</p><h4>{a.title}</h4><p>{a.detail}</p></article>))}</div>
+  {plan.process.some(p=>p.activities.some(a=>a.status==='사전 실시'))&&<p className="hint">※ ‘사전 실시’ 활동은 공개수업 전에 진행한 학습 활동입니다.</p>}
+  </section>
+  <section className="block"><h3>4. 문·수력 향상 중점</h3><div className="card"><p>{plan.focus}</p></div></section>
+  <section className="block"><h3>5. 원본 자료 다운로드</h3><div className="pdf-row"><a className="btn" href={asset(project.projectPdf)} download>프로젝트 활동 계획서 PDF 다운로드</a><a className="btn" href={asset(project.planPdf)} download>프로젝트 수업 과정안 PDF 다운로드</a></div></section>
+  <div className="pdf-row"><Link to="/lessons" className="btn btn-ghost">다른 수업 보기</Link></div>
+ </section>
 }

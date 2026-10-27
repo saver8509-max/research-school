@@ -7,13 +7,14 @@ export function LessonsPage() {
     <section>
       <PageHeader
         title="수업 지도안"
-        description="공개수업별 정보를 확인하고 웹페이지용 지도안을 열어 보세요."
+        description="학급별 프로젝트 과정과 공개수업 활동을 확인하고 원본 PDF를 다운로드하세요."
       />
       <ul className="card-grid">
         {lessons.map((lesson) => (
           <li key={lesson.id} className="info-card">
-            <p className="badge">{lesson.subject}</p>
+            <p className="badge">{lesson.period}</p>
             <h2>{lesson.grade}</h2>
+            <p>{lesson.project.title}</p>
             <dl>
               <div>
                 <dt>수업 장소</dt>
@@ -25,7 +26,7 @@ export function LessonsPage() {
               </div>
             </dl>
             <Link to={`/lessons/${lesson.id}`} className="btn">
-              수업 지도안 보기
+              프로젝트 및 공개수업 보기
             </Link>
           </li>
         ))}

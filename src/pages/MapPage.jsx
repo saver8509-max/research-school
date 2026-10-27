@@ -10,7 +10,7 @@ const clampZoom = (value) => Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, value))
 export function MapPage() {
   const [open, setOpen] = useState(false)
   const [hasImage, setHasImage] = useState(true)
-  const [zoom, setZoom] = useState(1)
+  const [zoom, setZoom] = useState(0.85)
   const zoomRef = useRef(1)
   const viewportRef = useRef(null)
   const pointersRef = useRef(new Map())
@@ -50,8 +50,8 @@ export function MapPage() {
   function resetMap() {
     pointersRef.current.clear()
     gestureRef.current = null
-    zoomRef.current = 1
-    setZoom(1)
+    zoomRef.current = 0.85
+    setZoom(0.85)
     requestAnimationFrame(() => viewportRef.current?.scrollTo(0, 0))
   }
 

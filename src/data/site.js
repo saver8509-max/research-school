@@ -9,7 +9,7 @@ export const site = {
   welcome:
     '방문해 주신 선생님을 환영합니다. 아래 메뉴에서 발표 순서, 학교 안내지도, 수업 지도안을 확인하실 수 있습니다.',
   // public 폴더 기준 경로. 이미지를 넣으면 안내지도 페이지에 표시됩니다.
-  // 예: public/materials/school-map.jpg → 'materials/school-map.jpg'
-  mapImage: 'materials/school-map.jpg',
+  // 예: public/materials/school-map.png → 'materials/school-map.png'
+  mapImage: 'materials/school-map.png',
   mapCaption: '중앙현관에서 참관 등록 및 덧신 착용 후 입장해 주세요. 지도를 누르면 크게 볼 수 있습니다.',
 }
