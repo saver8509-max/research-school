@@ -18,7 +18,7 @@ const project52 = {
  stages:[['1~2차시','역사 속 장면과 인물의 마음을 읽다','역사 자료를 읽고 사건의 흐름과 인물의 선택 이유 추론'],['3~4차시','사실과 추론을 가려 역사의 장면을 짜다','사실과 추론을 구분하여 극본 작성·수정'],['5~7차시','인물의 관점을 살려 역사의 장면을 표현하다','역할극 연습·촬영·편집'],['8차시','연극을 텍스트처럼 읽다 – 역사 역할극 발표회','역할극을 감상하고 인물의 관점과 자신의 선택을 근거로 설명']],
  projectPdf:'materials/lessons/5-2-project.pdf',planPdf:'materials/lessons/5-2-plan.pdf'
 }
-const make=(id,grade,project,topic,goal,activities,focus,period)=>({id,grade,subject:'프로젝트 수업',place:`${grade} 교실`,time:'13:10~14:40 수업 나눔',project,period,plan:{topic,goals:[goal],process:activities.map(a=>({stage:a[0],duration:a[2],activities:[{title:a[0],detail:a[1],status:a[3]||'공개수업'}]}))},focus})
+const make=(id,grade,project,topic,goal,activities,focus,period)=>({id,grade,subject:'프로젝트 수업',place:`${grade} 교실`,time:grade.startsWith('5학년')?'14:00~14:40':'13:10~13:50',project,period,plan:{topic,goals:[goal],process:activities.map(a=>({stage:a[0],duration:a[2],activities:[{title:a[0],detail:a[1],status:a[3]||'공개수업'}]}))},focus})
 export const lessons=[
  make('lesson-1','2학년 1반',project2,'생활에 필요한 여러 가지 도구들을 조사하여 표와 그래프로 나타내기','친구들로부터 생활에 필요한 도구에 관한 자료를 조사하여 표와 그래프로 나타낼 수 있다.',[
  ['활동 1. 주제 정하고 내 물건 정하기','모둠별 조사 주제를 정하고 홍보할 물건을 결정하여 홍보지 만들기','','사전 실시'],['활동 2. 친구들의 선택을 받아라','물건을 홍보하고 이름 스티커로 친구들의 선택 조사하기','','공개수업'],['활동 3. 우리 모둠의 표와 그래프','조사 결과를 표와 그래프로 나타내고 해석하기','','공개수업']], '이전에 공부한 내용과 연결짓기, 사회적 상호작용, 의미 중심 활동, 자료를 표와 그래프로 바꾸기, 성찰 및 감정 표현','4/7차시'),
