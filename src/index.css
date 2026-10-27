@@ -671,3 +671,33 @@ textarea {
   .map-toolbar-label { flex-basis: 100%; }
   .map-toolbar { justify-content: center; }
 }
+
+
+/* 2026 발표회: 우산초 학교 전경 사진 배경 */
+body {
+  background-color: #f8f7fb;
+  background-image: linear-gradient(rgba(248,247,251,.89), rgba(248,247,251,.91)), url('/research-school/school-campus.jpg');
+  background-size: cover;
+  background-position: center 68%;
+  background-attachment: fixed;
+}
+.hero-card {
+  min-height: 330px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-image: linear-gradient(180deg, rgba(17,44,62,.05) 0%, rgba(20,48,64,.16) 32%, rgba(15,39,57,.85) 100%), url('/research-school/school-campus.jpg');
+  background-position: center 66%;
+  background-size: cover;
+  color: #fff;
+  border-color: rgba(255,255,255,.55);
+  text-shadow: 0 1px 5px rgba(0,0,0,.36);
+}
+.hero-card .welcome, .hero-card .date, .hero-card .school { color: #fff; }
+.hero-card .eyebrow { color: #e8f6ff; opacity: 1; }
+.hero-card::after { display: none; }
+.page-header { padding: 12px 16px; border-radius: 16px; background: rgba(255,255,255,.87); }
+@media (max-width: 640px) {
+  body { background-attachment: scroll; background-position: center center; }
+  .hero-card { min-height: 355px; background-position: center 68%; }
+}
