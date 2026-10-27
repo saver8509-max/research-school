@@ -33,11 +33,9 @@ export function HomePage() {
   return (
     <section className="home">
       <div className="hero-card">
-        <p className="eyebrow">방문 교사 안내</p>
-        <h1>{site.eventTitle}</h1>
-        <p className="school">{site.schoolName}</p>
-        <p className="date">{site.eventDate}</p>
-        <p className="welcome">{site.welcome}</p>
+        <p className="eyebrow">{site.schoolName} | 2026 연구학교 운영 성과 발표회</p>
+        <h1 className="research-title"><span>「잇다 프로그램」 적용을 통한</span><strong>학생 문해력·수리력 신장 방안 연구</strong></h1>
+        <p className="date event-date">2026. 11. 12.(목)</p>
       </div>
 
       <h2 className="section-label">메뉴</h2>

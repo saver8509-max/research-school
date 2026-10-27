@@ -701,3 +701,10 @@ body {
   body { background-attachment: scroll; background-position: center center; }
   .hero-card { min-height: 355px; background-position: center 68%; }
 }
+
+/* 연구주제 중심 메인 배너 */
+.hero-card .research-title { display:flex; flex-direction:column; gap:8px; font-size:clamp(1.25rem,3.6vw,2rem); line-height:1.35; word-break:keep-all; }
+.hero-card .research-title strong { font-size:clamp(1.65rem,4.8vw,2.65rem); font-weight:800; line-height:1.28; }
+.hero-card .eyebrow { letter-spacing:0; font-size:clamp(.76rem,1.8vw,.95rem); font-weight:650; margin-bottom:18px; }
+.hero-card .event-date { white-space:nowrap; display:block; margin-top:20px; font-size:1rem; }
+@media (max-width:640px) { .hero-card {min-height:390px;padding:24px 18px;} .hero-card .research-title {font-size:1.25rem;} .hero-card .research-title strong {font-size:1.75rem;} .hero-card .event-date {font-size:.95rem;} }
