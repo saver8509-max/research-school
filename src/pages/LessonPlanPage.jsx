@@ -15,7 +15,7 @@ export function LessonPlanPage({id}) {
   <div className="process">{plan.process.map(({stage,activities})=>activities.map(a=><article className="card" key={stage} style={{opacity:a.status==='사전 실시'?.75:1,borderLeft:a.status==='공개수업'?'4px solid #ed7b93':'4px solid #c5cbd3'}}><p className="badge">{a.status}</p><h4>{a.title}</h4><p>{a.detail}</p></article>))}</div>
   {plan.process.some(p=>p.activities.some(a=>a.status==='사전 실시'))&&<p className="hint">※ ‘사전 실시’ 활동은 공개수업 전에 진행한 학습 활동입니다.</p>}
   </section>
-  <section className="block"><h3>4. 문·수력 향상 중점</h3><div className="card"><p>{plan.focus}</p></div></section>
+  <section className="block"><h3>4. 문해력·수리력 향상 전략</h3><div className="card"><p style={{whiteSpace:"pre-line"}}>{plan.focus}</p></div></section>
   <section className="block"><h3>5. 원본 자료 다운로드</h3><div className="pdf-row"><a className="btn" href={asset(project.projectPdf)} download>프로젝트 활동 계획서 PDF 다운로드</a><a className="btn" href={asset(project.planPdf)} download>프로젝트 수업 과정안 PDF 다운로드</a></div></section>
   <div className="pdf-row"><Link to="/lessons" className="btn btn-ghost">다른 수업 보기</Link></div>
  </section>
