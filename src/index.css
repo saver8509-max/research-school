@@ -720,3 +720,15 @@ body {
 .evaluation-table th { width:92px; min-width:78px; background:#f2f7f5; font-weight:700; white-space:nowrap; }
 .evaluation-method { margin:0; padding-top:12px; border-top:1px solid #e3e7ed; }
 @media(max-width:600px){.evaluation-table th,.evaluation-table td{padding:10px 9px;font-size:.88rem}.evaluation-table th{width:75px;min-width:72px}}
+
+/* 연구학교 운영 개요: 모바일 세로 인포그래픽 */
+.overview-page { width: 100%; }
+.overview-poster-wrap { max-width: 760px; margin: 18px auto 0; overflow: hidden; border-radius: 18px; box-shadow: 0 8px 28px rgba(30, 57, 79, .10); background: #fff; }
+.overview-poster-link { display: block; cursor: zoom-in; }
+.overview-poster { display: block; width: 100%; height: auto; }
+.overview-image-hint { text-align: center; color: var(--muted); font-size: .88rem; margin: 14px 0 24px; }
+@media (max-width: 859px) {
+  .bottom-nav { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .bottom-nav a { font-size: 12px; min-width: 0; }
+  .overview-poster-wrap { margin-top: 12px; border-radius: 12px; }
+}

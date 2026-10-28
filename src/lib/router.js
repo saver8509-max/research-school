@@ -26,6 +26,7 @@ export function parseRoute(hash) {
   const routes = {
     '/': 'home',
     '/schedule': 'schedule',
+    '/overview': 'overview',
     '/map': 'map',
     '/lessons': 'lessons',
     '/feedback': 'feedback',

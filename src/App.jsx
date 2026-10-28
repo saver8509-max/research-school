@@ -3,6 +3,7 @@ import { Layout } from './components/Layout'
 import { useHashRoute } from './lib/router'
 import { HomePage } from './pages/HomePage'
 import { SchedulePage } from './pages/SchedulePage'
+import { OverviewPage } from './pages/OverviewPage'
 import { MapPage } from './pages/MapPage'
 import { LessonsPage } from './pages/LessonsPage'
 import { LessonPlanPage } from './pages/LessonPlanPage'
@@ -14,6 +15,8 @@ function renderPage(route) {
   switch (route.name) {
     case 'home':
       return <HomePage />
+    case 'overview':
+      return <OverviewPage />
     case 'schedule':
       return <SchedulePage />
     case 'map':
