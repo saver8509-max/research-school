@@ -33,7 +33,7 @@ export function HomePage() {
   return (
     <section className="home">
       <div className="hero-card">
-        <p className="eyebrow">{site.schoolName} | 2026 연구학교 운영 성과 발표회</p>
+        <p className="eyebrow">2026학년도 강원특별자치도교육청 지정 교육과정 연구학교</p>
         <h1 className="research-title"><span>「잇다 프로그램」 적용을 통한</span><strong>학생 문해력·수리력 신장 방안 연구</strong></h1>
         <p className="date event-date">2026. 11. 12.(목)</p>
       </div>
