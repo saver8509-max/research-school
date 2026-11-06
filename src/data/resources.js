@@ -9,7 +9,7 @@ export const resources = [
     title: '연구학교 보고서',
     description: '연구학교 운영 과정과 성과를 담은 보고서입니다.',
     type: 'pdf',
-    file: null, // 예: 'materials/research-report.pdf'
+    file: 'materials/research-report-2026.pdf',
   },
   {
     id: 'generalization',
@@ -23,13 +23,13 @@ export const resources = [
     title: '패들렛',
     description: '연구학교 운영 성과와 자료를 패들렛에서 확인합니다.',
     type: 'link',
-    url: null, // 예: 'https://padlet.com/...'
+    url: 'https://padlet.com/e239s25218/2025-2026-s024vulqp03cutxbwx1q',
   },
   {
     id: 'leaflet',
     title: '리플렛',
     description: '연구학교 발표회 안내 리플렛입니다.',
     type: 'pdf',
-    file: null, // 예: 'materials/leaflet.pdf'
+    file: 'materials/research-leaflet-2026.pdf',
   },
 ]
