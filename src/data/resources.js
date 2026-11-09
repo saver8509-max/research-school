@@ -12,11 +12,25 @@ export const resources = [
     file: 'materials/research-report-2026.pdf',
   },
   {
-    id: 'generalization',
-    title: '일반화 자료',
-    description: '학교 현장에서 활용할 수 있는 연구학교 일반화 자료입니다.',
+    id: 'generalization-1',
+    title: '일반화 자료 1 · 배움을 잇다',
+    description: '교과 특수적 문수력 확장을 위한 「배움을 잇다」 일반화 자료입니다.',
     type: 'pdf',
-    file: null, // 예: 'materials/generalization.pdf'
+    file: 'materials/generalization-1.pdf',
+  },
+  {
+    id: 'generalization-2',
+    title: '일반화 자료 2 · 우리의 삶을 잇다',
+    description: '범교과적 문수력 적용을 위한 「우리의 삶을 잇다」 프로젝트 수업 자료입니다.',
+    type: 'pdf',
+    file: 'materials/generalization-2.pdf',
+  },
+  {
+    id: 'generalization-3',
+    title: '일반화 자료 3 · 학교 자율시간',
+    description: '2022 개정 교육과정에 따른 학교 자율시간 운영 자료입니다.',
+    type: 'pdf',
+    file: 'materials/generalization-3.pdf',
   },
   {
     id: 'padlet',
