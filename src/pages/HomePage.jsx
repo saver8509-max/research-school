@@ -10,7 +10,7 @@ const menus = [
   {
     to: '/map',
     title: '학교 안내지도',
-    desc: '공개수업 교실과 주요 장소를 찾습니다.',
+    desc: '수업 나눔 교실과 주요 장소를 찾습니다.',
   },
   {
     to: '/overview',
@@ -20,7 +20,7 @@ const menus = [
   {
     to: '/lessons',
     title: '수업 지도안',
-    desc: '공개수업 주제와 학습 흐름을 봅니다.',
+    desc: '수업 나눔 주제와 학습 흐름을 봅니다.',
   },
   {
     to: '/feedback',

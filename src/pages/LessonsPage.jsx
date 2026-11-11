@@ -7,7 +7,7 @@ export function LessonsPage() {
     <section>
       <PageHeader
         title="수업 지도안"
-        description="학급별 프로젝트 과정과 공개수업 활동을 확인하고 원본 PDF를 다운로드하세요."
+        description="학급별 프로젝트 과정과 수업 나눔 활동을 확인하고 원본 PDF를 다운로드하세요."
       />
       <ul className="card-grid">
         {lessons.map((lesson) => (
@@ -26,7 +26,7 @@ export function LessonsPage() {
               </div>
             </dl>
             <Link to={`/lessons/${lesson.id}`} className="btn">
-              프로젝트 및 공개수업 보기
+              프로젝트 및 수업 나눔 보기
             </Link>
           </li>
         ))}
